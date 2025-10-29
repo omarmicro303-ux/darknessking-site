@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Darkness King — مكتبة</title>
+  <meta name="description" content="Darkness King — مكتبة لكتب البرمجة وتطوير الذات" />
+  <style>
+    /* ===== Theme: Oceanic Dark + Neon ===== */
+    :root{--bg:#071225;--card:#061726;--accent:#06f0ff;--muted:#9fb7d9;--glass:rgba(255,255,255,0.03)}
+    *{box-sizing:border-box;font-family: 'Noto Kufi Arabic', 'Segoe UI', Tahoma, system-ui, sans-serif}
+    html,body{height:100%;margin:0;background:radial-gradient(ellipse at 10% 10%, rgba(6,240,255,0.03), transparent 5%), linear-gradient(180deg,#021226 0%, #071a2b 100%);color:#dbeeff;direction:rtl}
+    header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#081428,#06324a);display:grid;place-items:center;font-weight:800;color:var(--accent);font-size:22px;box-shadow:0 6px 30px rgba(3,12,20,0.6)}
+    h1{margin:0;font-size:20px}
+    nav a{color:var(--muted);text-decoration:none;margin-left:14px}
+    main{max-width:1100px;margin:0 auto;padding:10px}
+    .hero{display:flex;gap:18px;align-items:center;justify-content:space-between;margin:14px 0}
+    .hero .info{max-width:650px}
+    .badge{background:var(--glass);padding:6px 10px;border-radius:10px;color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:12px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));border-radius:12px;padding:12px;box-shadow:0 8px 28px rgba(2,8,20,0.6);display:flex;flex-direction:column;min-height:360px}
+    .cover{height:240px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:10px}
+    .title{font-weight:800;margin-bottom:4px;font-size:16px}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .desc{font-size:13px;color:#bcdcff;flex:1}
+    .price{font-weight:800;margin-top:10px}
+    .row{display:flex;gap:8px;align-items:center}
+    .btn{padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#7cf7ff33);color:#021827;border:none;cursor:pointer;font-weight:800}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    footer{margin-top:22px;padding:16px;text-align:center;color:var(--muted)}
+
+    /* modal/admin */
+    .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(2,6,23,0.6);z-index:80}
+    .modal.open{display:grid}
+    .box{background:var(--card);padding:16px;border-radius:12px;max-width:720px;width:95%;box-shadow:0 8px 40px rgba(2,8,30,0.7)}
+    input,textarea,select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    label{font-size:13px;color:var(--muted);margin-bottom:6px;display:block}
+    .admin-bar{display:flex;gap:8px;align-items:center}
+    .glow{box-shadow:0 6px 30px rgba(6,240,255,0.06);}
+    .lang-toggle{cursor:pointer;padding:6px 8px;border-radius:8px;background:#021827;border:1px solid rgba(255,255,255,0.03)}
+
+    @media(max-width:720px){.hero{flex-direction:column;align-items:flex-start}.cover{height:200px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">DK</div>
+      <div>
+        <h1>Darkness King</h1>
+        <div style="font-size:13px;color:var(--muted)">مرحبًا بك — تقدم هذه المكتبة مجموعة واسعة من كتب البرمجة وكتب تطوير الذات</div>
+      </div>
+    </div>
+    <nav class="row">
+      <div class="lang-toggle" id="langToggle">العربية</div>
+      <button class="btn secondary" id="adminBtn">دخول المالك</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="info">
+        <div class="badge">مصمّم ومملوك بواسطة Darkness King</div>
+        <h2 style="margin:10px 0 6px;color:var(--accent)">Darkness King — مكتبة إلكترونية متخصصة</h2>
+        <p style="margin:0 0 12px;color:#bcdcff">اكتشف مجموعتنا المختارة من أفضل كتب البرمجة وكتب تطوير الذات. كمالك للموقع (البريد: <span id="ownerEmail">omarmo309030@gmail.com</span>) يمكنك فتح أي كتاب دون قيود بعد تسجيل الدخول كمالك.</p>
+      </div>
+      <div style="max-width:320px;text-align:left">
+        <img alt="ocean" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop&s=2a8b4b9b5b9b" style="width:100%;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6)"/>
+      </div>
+    </section>
+
+    <section>
+      <h3 style="margin:6px 0 8px">الكتب المتاحة</h3>
+      <div class="grid" id="products"></div>
+    </section>
+
+    <div class="modal" id="modal">
+      <div class="box" id="modalBox">
+        <!-- محتوى ديناميكي -->
+      </div>
+    </div>
+
+    <!-- Admin panel hidden until login -->
+    <div id="adminPanel" style="display:none;margin-top:16px">
+      <div class="box">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-weight:800">لوحة المالك</div>
+          <div class="admin-bar">
+            <button class="btn secondary" id="logoutAdmin">خروج</button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <label>إضافة كتاب جديد</label>
+            <input id="newTitle" placeholder="عنوان الكتاب" />
+            <input id="newAuthor" placeholder="الكاتب" style="margin-top:8px" />
+            <input id="newCover" placeholder="رابط غلاف (URL)" style="margin-top:8px" />
+            <textarea id="newDesc" rows="3" placeholder="وصف مختصر" style="margin-top:8px"></textarea>
+            <input id="newCategory" placeholder="فئة (برمجة / تطوير ذات)" style="margin-top:8px" />
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn" id="addBookBtn">أضف الكتاب</button>
+              <button class="btn secondary" id="saveState">حفظ التغييرات</button>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:260px">
+            <label>تغيير كلمة سر المالك</label>
+            <input id="oldPass" type="password" placeholder="كلمة السر الحالية" />
+            <input id="newPass" type="password" placeholder="كلمة السر الجديدة" style="margin-top:8px" />
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn" id="changePassBtn">غير كلمة السر</button>
+            </div>
+
+            <hr style="margin:12px 0;border-color:rgba(255,255,255,0.03)" />
+
+            <label>حذف كتاب (أدخل ID)</label>
+            <input id="delId" placeholder="مثال: book_3" />
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn secondary" id="delBookBtn">حذف</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div style="margin-top:12px;color:var(--muted);font-size:13px">ملاحظة: كل التعديلات تخزن محليًا (localStorage). عند الرغبة بنقلها لسيرفر حقيقي سأجهز لك API لاحقًا.</div>
+      </div>
+    </div>
+
+    <footer>
+      © 2025 Darkness King — مصمّم ومملوك بواسطة Darkness King — البريد: <span id="ownerEmail2">omarmo309030@gmail.com</span>
+    </footer>
+  </main>
+
+  <script>
+    /* ========== بيانات المالك وتهيئة ========== */
+    const OWNER_EMAIL = 'omarmo309030@gmail.com';
+    const DEFAULT_ADMIN_PASS = 'mm12345mm'; // كما طلبت
+
+    // ترجمة بسيطة
+    const TRANSLATIONS = {
+      ar: {
+        buy:'اقرأ الآن', locked:'مقفل', open:'افتح', adminLogin:'دخول المالك', adminLogout:'خروج', saved:'تم الحفظ محليًا'
+      },
+      en: {
+        buy:'Read Now', locked:'Locked', open:'Open', adminLogin:'Owner Login', adminLogout:'Logout', saved:'Saved locally'
+      }
+    };
+
+    let LANG = localStorage.getItem('dk_lang') || 'ar';
+    document.getElementById('langToggle').textContent = LANG==='ar' ? 'العربية' : 'English';
+
+    // ====== قائمة الكتب الافتراضية (20 كتاب) ======
+    const DEFAULT_PRODUCTS = [
+      {id:'book_1', title:'Clean Code', author:'Robert C. Martin', category:'برمجة', price_usd:34.99, cover:'https://covers.openlibrary.org/b/isbn/9780132350884-L.jpg', desc:'كتاب أساسي لكتابة كود نظيف وسهل الصيانة.'},
+      {id:'book_2', title:'The Pragmatic Programmer', author:'Andrew Hunt', category:'برمجة', price_usd:39.99, cover:'https://covers.openlibrary.org/b/isbn/9780201616224-L.jpg', desc:'مبادئ عملية لتصبح مطور برمجيات أفضل.'},
+      {id:'book_3', title:"You Don't Know JS (Up & Going)", author:'Kyle Simpson', category:'برمجة', price_usd:19.99, cover:'https://covers.openlibrary.org/b/isbn/9781491904244-L.jpg', desc:'سلسلة قوية لفهم جافاسكربت بعمق.'},
+      {id:'book_4', title:'Python Crash Course', author:'Eric Matthes', category:'برمجة', price_usd:29.99, cover:'https://covers.openlibrary.org/b/isbn/9781593276034-L.jpg', desc:'مقدمة عملية لتعلم بايثون.'},
+      {id:'book_5', title:'JavaScript: The Good Parts', author:'Douglas Crockford', category:'برمجة', price_usd:24.99, cover:'https://covers.openlibrary.org/b/isbn/9780596517748-L.jpg', desc:'نظرة مركزة على الجوانب القوية في جافاسكربت.'},
+      {id:'book_6', title:'Learn Python the Hard Way', author:'Zed A. Shaw', category:'برمجة', price_usd:22.99, cover:'https://covers.openlibrary.org/b/isbn/9780321884916-L.jpg', desc:'تمارين عملية متتابعة لتعلم بايثون.'},
+      {id:'book_7', title:'HTML & CSS: Design and Build Websites', author:'Jon Duckett', category:'برمجة', price_usd:27.99, cover:'https://covers.openlibrary.org/b/isbn/9781118008188-L.jpg', desc:'دليل مرئي لبناء واجهات الويب.'},
+      {id:'book_8', title:'Eloquent JavaScript', author:'Marijn Haverbeke', category:'برمجة', price_usd:21.99, cover:'https://covers.openlibrary.org/b/isbn/9781593279509-L.jpg', desc:'كتاب ممتاز لفهم جافاسكربت ومفاهيم البرمجة.'},
+      {id:'book_9', title:'Head First Java', author:'Kathy Sierra', category:'برمجة', price_usd:35.99, cover:'https://covers.openlibrary.org/b/isbn/9780596009205-L.jpg', desc:'منهج تفاعلي لتعلم جافا.'},
+      {id:'book_10', title:'The C Programming Language', author:'Kernighan & Ritchie', category:'برمجة', price_usd:44.99, cover:'https://covers.openlibrary.org/b/isbn/9780131103627-L.jpg', desc:'المرجع الكلاسيكي لتعلم لغة C.'},
+
+      {id:'book_11', title:'Atomic Habits', author:'James Clear', category:'تطوير ذات', price_usd:16.99, cover:'https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg', desc:'استراتيجيات صغيرة لتغييرات كبيرة في العادات.'},
+      {id:'book_12', title:'The 7 Habits of Highly Effective People', author:'Stephen R. Covey', category:'تطوير ذات', price_usd:18.99, cover:'https://covers.openlibrary.org/b/isbn/9780743269513-L.jpg', desc:'عادات عملية للنجاح الشخصي والمهني.'},
+      {id:'book_13', title:'The Power of Now', author:'Eckhart Tolle', category:'تطوير ذات', price_usd:14.99, cover:'https://covers.openlibrary.org/b/isbn/9781577314806-L.jpg', desc:'دليل للعيش في الحاضر والتخلص من القلق.'},
+      {id:'book_14', title:'Think and Grow Rich', author:'Napoleon Hill', category:'تطوير ذات', price_usd:12.99, cover:'https://covers.openlibrary.org/b/isbn/9780486425573-L.jpg', desc:'مبادئ لنجاح الثروة والعقلية.'},
+      {id:'book_15', title:'How to Win Friends & Influence People', author:'Dale Carnegie', category:'تطوير ذات', price_usd:11.99, cover:'https://covers.openlibrary.org/b/isbn/9780671027032-L.jpg', desc:'فن التعامل مع الناس وبناء شبكة علاقات.'},
+      {id:'book_16', title:'Deep Work', author:'Cal Newport', category:'تطوير ذات', price_usd:15.99, cover:'https://covers.openlibrary.org/b/isbn/9781455586691-L.jpg', desc:'استراتيجيات للتركيز العميق والإنتاجية.'},
+      {id:'book_17', title:'The Subtle Art of Not Giving a F*ck', author:'Mark Manson', category:'تطوير ذات', price_usd:13.99, cover:'https://covers.openlibrary.org/b/isbn/9780062457714-L.jpg', desc:'منهج صريح لإعادة ترتيب الأولويات.'},
+      {id:'book_18', title:"Can't Hurt Me", author:'David Goggins', category:'تطوير ذات', price_usd:14.99, cover:'https://covers.openlibrary.org/b/isbn/9781544512289-L.jpg', desc:'قصة تحفيزية عن التحمل وتخطي الذات.'},
+      {id:'book_19', title:'The 48 Laws of Power', author:'Robert Greene', category:'تطوير ذات', price_usd:19.99, cover:'https://covers.openlibrary.org/b/isbn/9780140280197-L.jpg', desc:'قواعد لفهم الديناميكيات الاجتماعية والقوة.'},
+      {id:'book_20', title:'Mindset: The New Psychology of Success', author:'Carol S. Dweck', category:'تطوير ذات', price_usd:13.99, cover:'https://covers.openlibrary.org/b/isbn/9780345472328-L.jpg', desc:'قوة العقلية النامية وتأثيرها على النجاح.'}
+    ];
+
+    // === إدارة الحالة المحلية (الكتب و admin pass) ===
+    function loadState(){
+      const raw = localStorage.getItem('dk_state');
+      if(raw) return JSON.parse(raw);
+      return {products:DEFAULT_PRODUCTS, adminPass:DEFAULT_ADMIN_PASS, unlocked: {}};
+    }
+    function saveState(state){ localStorage.setItem('dk_state', JSON.stringify(state)); }
+
+    let state = loadState();
+    let PRODUCTS = state.products;
+    let ADMIN_PASS = state.adminPass;
+    let UNLOCKED = state.unlocked || {};
+    let IS_ADMIN = false;
+
+    // =========== Render ===========
+    const productsContainer = document.getElementById('products');
+
+    function t(key){ return TRANSLATIONS[LANG][key] || key; }
+
+    function renderProducts(){
+      productsContainer.innerHTML = PRODUCTS.map(p=>{
+        const locked = !UNLOCKED[p.id] && !IS_ADMIN; // locked for non-admin
+        return `
+          <div class="card">
+            <div class="cover" style="background-image:url('${p.cover}')"></div>
+            <div class="title">${p.title}</div>
+            <div class="meta">${p.author} · ${p.category}</div>
+            <div class="desc">${p.desc}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+              <div class="price">${p.price_usd? '$'+p.price_usd.toFixed(2): ''}</div>
+              <div>
+                <button class="btn" onclick="openBook('${p.id}')">${locked? t('locked') : t('buy')}</button>
+                ${IS_ADMIN? `<button class=\"btn secondary\" onclick=\"toggleLock('${p.id}')\">${UNLOCKED[p.id]? 'قفل' : 'فتح'}</button>`: ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ========== Open Book Logic ==========
+    function openBook(id){
+      const book = PRODUCTS.find(b=>b.id===id);
+      const locked = !UNLOCKED[id] && !IS_ADMIN;
+      if(locked){
+        showModal(`<h3>الكتاب مقفول</h3><p>الكتاب غير متاح للقراءة إلا للمالك أو بعد الشراء. كمالك يمكنك تسجيل الدخول لفتح الكتب.</p>`);
+        return;
+      }
+      // Show book reader (simple full-screen modal with cover + text sample)
+      const html = `
+        <div style=\"display:flex;gap:12px;flex-direction:column\"> 
+          <div style=\"display:flex;gap:12px;align-items:center\"> 
+            <img src=\"${book.cover}\" style=\"width:110px;height:150px;border-radius:8px;object-fit:cover\" />
+            <div> <div style=\"font-weight:800;font-size:18px\">${book.title}</div> <div style=\"color:var(--muted)\">${book.author}</div></div>
+          </div>
+          <hr style=\"border-color:rgba(255,255,255,0.04)\" />
+          <div style=\"color:#dfeeff;line-height:1.6\">
+            <p>هنا مساحة عرض تجريبية لصفحات الكتاب. يمكنك استبدالها بمحتوى فعلي (PDF/HTML) وإتاحة التحميل بعد تفعيل بوابة الدفع لاحقًا.</p>
+            <p><em>ملاحظة:</em> هذا المثال يعرض قسمًا نموذجيًا من الكتاب لعرض كيفية القراءة داخل الموقع.</p>
+          </div>
+          <div style=\"display:flex;justify-content:flex-end;gap:8px;margin-top:10px\"> <button class=\"btn\" onclick=\"closeModal()\">اغلاق</button></div>
+        </div>
+      `;
+      showModal(html);
+    }
+
+    // ========== Modal helpers ==========
+    const modal = document.getElementById('modal');
+    const modalBox = document.getElementById('modalBox');
+    function showModal(html){ modalBox.innerHTML = html; modal.classList.add('open'); }
+    function closeModal(){ modal.classList.remove('open'); }
+    modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
+
+    // ========== Admin Login (Owner) ==========
+    document.getElementById('adminBtn').addEventListener('click', ()=>{
+      showModal(`<h3>دخول المالك</h3>
+        <p>أدخل كلمة السر الخاصة بك للوصول للوحة المالك.</p>
+        <input id=\"attemptPass\" type=\"password\" placeholder=\"كلمة السر\" style=\"margin-top:8px\" />
+        <div style=\"display:flex;gap:8px;margin-top:10px\"> <button class=\"btn\" id=\"tryAdmin\">دخول</button> <button class=\"btn secondary\" onclick=\"closeModal()\">إلغاء</button> </div>
+      `);
+      document.getElementById('tryAdmin').addEventListener('click', ()=>{
+        const v = document.getElementById('attemptPass').value;
+        if(v===ADMIN_PASS){
+          IS_ADMIN = true; document.getElementById('adminPanel').style.display='block'; closeModal(); renderProducts();
+          alert('مرحبًا المالك — أنت الآن مسجل دخول.');
+        } else alert('كلمة سر خاطئة');
+      });
+    });
+
+    document.getElementById('logoutAdmin').addEventListener('click', ()=>{ IS_ADMIN=false; document.getElementById('adminPanel').style.display='none'; renderProducts(); alert('تم تسجيل الخروج'); });
+
+    // ========== Admin actions: add, delete, change pass, toggle lock =========
+    document.getElementById('addBookBtn').addEventListener('click', ()=>{
+      const title = document.getElementById('newTitle').value.trim();
+      const author = document.getElementById('newAuthor').value.trim();
+      const cover = document.getElementById('newCover').value.trim();
+      const desc = document.getElementById('newDesc').value.trim();
+      const category = document.getElementById('newCategory').value.trim() || 'عام';
+      if(!title||!author){ alert('اكتب العنوان والمؤلف'); return; }
+      const id = 'book_' + (PRODUCTS.length+1) + '_' + Math.random().toString(36).slice(2,7);
+      const newBook = {id,title,author,category,price_usd:0,cover:cover||'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop&s=a7f4e5b1',desc};
+      PRODUCTS.unshift(newBook);
+      state.products = PRODUCTS; saveState(state); renderProducts(); alert('تمت الإضافة');
+      document.getElementById('newTitle').value='';document.getElementById('newAuthor').value='';document.getElementById('newCover').value='';document.getElementById('newDesc').value='';
+    });
+
+    document.getElementById('delBookBtn').addEventListener('click', ()=>{
+      const id = document.getElementById('delId').value.trim();
+      if(!id) return alert('اكتب ID الكتاب');
+      PRODUCTS = PRODUCTS.filter(p=>p.id!==id);
+      state.products = PRODUCTS; saveState(state); renderProducts(); alert('تم الحذف');
+    });
+
+    document.getElementById('saveState').addEventListener('click', ()=>{ state.products = PRODUCTS; saveState(state); alert(t('saved')); });
+
+    document.getElementById('changePassBtn').addEventListener('click', ()=>{
+      const oldP = document.getElementById('oldPass').value;
+      const newP = document.getElementById('newPass').value;
+      if(oldP!==ADMIN_PASS) return alert('كلمة السر الحالية خاطئة');
+      if(!newP) return alert('اكتب كلمة السر الجديدة');
+      ADMIN_PASS = newP; state.adminPass = newP; saveState(state); alert('تم تغيير كلمة السر'); document.getElementById('oldPass').value='';document.getElementById('newPass').value='';
+    });
+
+    function toggleLock(id){ UNLOCKED[id] = !UNLOCKED[id]; state.unlocked = UNLOCKED; saveState(state); renderProducts(); }
+
+    // ========== Language toggle =========
+    document.getElementById('langToggle').addEventListener('click', ()=>{
+      LANG = LANG==='ar' ? 'en' : 'ar';
+      localStorage.setItem('dk_lang', LANG);
+      document.getElementById('langToggle').textContent = LANG==='ar' ? 'العربية' : 'English';
+      renderProducts();
+    });
+
+    // ========== Init rendering ==========
+    renderProducts();
+
+    // expose some funcs for inline handlers
+    window.openBook = openBook;
+    window.toggleLock = toggleLock;
+    window.closeModal = closeModal;
+
+    // show owner email fields
+    document.getElementById('ownerEmail').textContent = OWNER_EMAIL;
+    document.getElementById('ownerEmail2').textContent = OWNER_EMAIL;
+
+    // small UX: press Esc to close modal
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeModal(); });
+
+  </script>
+</body>
+</html>
