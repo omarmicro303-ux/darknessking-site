@@ -63,7 +63,7 @@
   <main>
     <section class="hero">
       <div class="info">
-        <div class="badge">مصمّم ومملوك بواسطة Darkness King</div>
+        <div class="badge">مرحبًا بك.. هذا متجر و مكتبة لبيع الكتب.. سيتم الغاء قفل الكتب فيما بعد.</div>
         <h2 style="margin:10px 0 6px;color:var(--accent)">Darkness King — مكتبة إلكترونية متخصصة</h2>
         <p style="margin:0 0 12px;color:#bcdcff">اكتشف مجموعتنا المختارة من أفضل كتب البرمجة وكتب تطوير الذات. كمالك للموقع (البريد: <span id="ownerEmail">omarmo309030@gmail.com</span>) يمكنك فتح أي كتاب دون قيود بعد تسجيل الدخول كمالك.</p>
       </div>
@@ -223,7 +223,7 @@
       const book = PRODUCTS.find(b=>b.id===id);
       const locked = !UNLOCKED[id] && !IS_ADMIN;
       if(locked){
-        showModal(`<h3>الكتاب مقفول</h3><p>الكتاب غير متاح للقراءة إلا للمالك أو بعد الشراء. كمالك يمكنك تسجيل الدخول لفتح الكتب.</p>`);
+        showModal(`<h3>الكتاب مقفول</h3><p>الكتاب غير متاح للقراءة إلا بعد الشراء. كمالك للموقع يمكنك تسجيل الدخول لفتح الكتب.</p>`);
         return;
       }
       // Show book reader (simple full-screen modal with cover + text sample)
@@ -328,4 +328,5 @@
 
   </script>
 </body>
+
 </html>
